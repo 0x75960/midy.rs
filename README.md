@@ -3,6 +3,8 @@ midy.rs
 
 hash string utility library
 
+[![Build Status](https://travis-ci.com/0x75960/midy.rs.svg?branch=master)](https://travis-ci.com/0x75960/midy.rs)
+
 * detect hash type
     *  md5 / sha1 / sha256 or unknown
     
