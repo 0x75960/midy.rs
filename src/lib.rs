@@ -63,7 +63,7 @@ pub fn is_empty(target: &impl AsRef<str>) -> bool {
 pub fn find_md5(target: &impl AsRef<str>) -> HashSet<String> {
     MD5_PATTERN
         .captures_iter(target.as_ref())
-        .map(|x| x["target"].to_owned())
+        .map(|x| x["target"].to_lowercase())
         .collect()
 }
 
@@ -71,7 +71,7 @@ pub fn find_md5(target: &impl AsRef<str>) -> HashSet<String> {
 pub fn find_sha1(target: &impl AsRef<str>) -> HashSet<String> {
     SHA1_PATTERN
         .captures_iter(target.as_ref())
-        .map(|x| x["target"].to_owned())
+        .map(|x| x["target"].to_lowercase())
         .collect()
 }
 
@@ -79,7 +79,7 @@ pub fn find_sha1(target: &impl AsRef<str>) -> HashSet<String> {
 pub fn find_sha256(target: &impl AsRef<str>) -> HashSet<String> {
     SHA256_PATTERN
         .captures_iter(target.as_ref())
-        .map(|x| x["target"].to_owned())
+        .map(|x| x["target"].to_lowercase())
         .collect()
 }
 
@@ -87,7 +87,7 @@ pub fn find_sha256(target: &impl AsRef<str>) -> HashSet<String> {
 pub fn find(target: &impl AsRef<str>) -> HashSet<String> {
     HASH_PATTERN
         .captures_iter(target.as_ref())
-        .map(|x| x["target"].to_owned())
+        .map(|x| x["target"].to_lowercase())
         .collect()
 }
 
@@ -146,11 +146,11 @@ mod tests {
     fn test_find_md5() {
         let target = r#"
             d41d8cd98f00b204e9800998ecf8427e
-            d41d8cd98f00b204e9800998ecf8427e
+            D41D8CD98F00B204E9800998ECF8427E
             da39a3ee5e6b4b0d3255bfef95601890afd80709
-            da39a3ee5e6b4b0d3255bfef95601890afd80709
+            DA39A3EE5E6B4B0D3255BFEF95601890AFD80709
             e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
         "#;
         let found = find_md5(&target);
         assert_eq!(1, found.len());
@@ -161,11 +161,11 @@ mod tests {
     fn test_find_sha1() {
         let target = r#"
             d41d8cd98f00b204e9800998ecf8427e
-            d41d8cd98f00b204e9800998ecf8427e
+            D41D8CD98F00B204E9800998ECF8427E
             da39a3ee5e6b4b0d3255bfef95601890afd80709
-            da39a3ee5e6b4b0d3255bfef95601890afd80709
+            DA39A3EE5E6B4B0D3255BFEF95601890AFD80709
             e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
         "#;
         let found = find_sha1(&target);
         assert_eq!(1, found.len());
@@ -176,11 +176,11 @@ mod tests {
     fn test_find_sha256() {
         let target = r#"
             d41d8cd98f00b204e9800998ecf8427e
-            d41d8cd98f00b204e9800998ecf8427e
+            D41D8CD98F00B204E9800998ECF8427E
             da39a3ee5e6b4b0d3255bfef95601890afd80709
-            da39a3ee5e6b4b0d3255bfef95601890afd80709
+            DA39A3EE5E6B4B0D3255BFEF95601890AFD80709
             e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
         "#;
         let found = find_sha256(&target);
         assert_eq!(1, found.len());
@@ -191,11 +191,11 @@ mod tests {
     fn test_find() {
         let target = r#"
             d41d8cd98f00b204e9800998ecf8427e
-            d41d8cd98f00b204e9800998ecf8427e
+            D41D8CD98F00B204E9800998ECF8427E
             da39a3ee5e6b4b0d3255bfef95601890afd80709
-            da39a3ee5e6b4b0d3255bfef95601890afd80709
+            DA39A3EE5E6B4B0D3255BFEF95601890AFD80709
             e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855
         "#;
         let found = find(&target);
         assert_eq!(3, found.len());
